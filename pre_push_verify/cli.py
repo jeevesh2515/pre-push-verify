@@ -39,7 +39,8 @@ def print_banner() -> None:
   | _ \ _ \ __|___ | _ \| | | / __| || | | | | | __| _ \_ _| __| | | |
   |  _/   / _|____ |  _/| |_| \__ \ __ | | |_| | _||   /| || _|| |_| |
   |_| |_|_\___|    |_|   \___/|___/_||_|  \___/|___|_|_\___|_|   \___/ 
-{RESET}{DIM}  Autonomous Pre-Push Guardrail & Anti-Overengineering Engine v1.0.0{RESET}
+{RESET}{DIM}  Autonomous Pre-Push Guardrail & Anti-Overengineering Engine v1.0.0
+  [🔒 100% Local-First • 🛡️ 0% Data Retention • Zero External Telemetry]{RESET}
 """
     print(banner)
 
@@ -97,6 +98,7 @@ pre-push-verify --strict
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Autonomous Pre-Push Guardrail & Anti-Overengineering Engine")
+    parser.add_argument("--version", action="version", version="pre-push-verify 1.0.0")
     parser.add_argument("--strict", action="store_true", help="Fail if any secret or ponytail finding exists")
     parser.add_argument("--skip-tests", action="store_true", help="Skip running automated test suite")
     parser.add_argument("--install-hook", action="store_true", help="Install pre-push git hook")

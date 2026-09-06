@@ -1,7 +1,7 @@
 {
   "name": "pre-push-verify",
   "version": "1.0.0",
-  "description": "Autonomous Pre-Push Guardrail & Anti-Overengineering Engine for AI Coding Agents",
+  "description": "Autonomous Pre-Push Guardrail & Anti-Overengineering Engine for AI Coding Agents. 100% Local execution with 0% data retention.",
   "main": "bin/pre-push-verify",
   "bin": {
     "pre-push-verify": "./bin/pre-push-verify"
@@ -18,7 +18,13 @@
     "claude-code",
     "antigravity",
     "cursor",
-    "ponytail"
+    "windsurf",
+    "ponytail",
+    "zero-data-retention",
+    "local-first",
+    "privacy-first",
+    "llm-security",
+    "devsecops"
   ],
   "author": "Jeevesh Singale",
   "license": "MIT"

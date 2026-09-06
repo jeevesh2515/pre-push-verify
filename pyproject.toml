@@ -8,10 +8,24 @@ version = "1.0.0"
 authors = [
   { name="Jeevesh Singale", email="jeeveshsingale@gmail.com" },
 ]
-description = "Autonomous Pre-Push Guardrail & Anti-Overengineering Engine for AI Coding Agents"
+description = "Autonomous Pre-Push Guardrail & Anti-Overengineering Engine for AI Coding Agents. 100% Local execution with 0% data retention."
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.9"
+keywords = [
+  "ai-agents",
+  "security-scanner",
+  "pre-commit",
+  "git-hooks",
+  "claude-code",
+  "antigravity",
+  "cursor",
+  "windsurf",
+  "zero-data-retention",
+  "local-first",
+  "devsecops",
+  "code-quality"
+]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",

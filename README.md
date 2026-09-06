@@ -4,17 +4,20 @@
 
 ### **The Autonomous Security & Anti-Slop Firewall for AI Coding Agents**
 
-*Stop API key leaks, eliminate LLM code bloat, and run regression tests before any commit or push hits GitHub.*
+*Stop API key leaks, eliminate LLM code bloat, and verify regression tests before any commit or push hits GitHub.*
 
 [![CI](https://github.com/jeevesh2515/pre-push-verify/actions/workflows/ci.yml/badge.svg)](https://github.com/jeevesh2515/pre-push-verify/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-3776AB.svg?logo=python&logoColor=white)](https://python.org)
-[![Agent Ready](https://img.shields.io/badge/Agents-Claude%20Code%20%7C%20Antigravity%20%7C%20Cursor%20%7C%20Codex-brightgreen.svg)](https://github.com/jeevesh2515/pre-push-verify)
+[![Data Retention](https://img.shields.io/badge/Data%20Retention-0%25%20(Local%20Only)-brightgreen.svg)](#-enterprise-privacy--zero-data-retention-guarantee)
+[![Telemetry](https://img.shields.io/badge/Telemetry-None%20(Air--Gapped)-purple.svg)](#-enterprise-privacy--zero-data-retention-guarantee)
+[![Agent Ready](https://img.shields.io/badge/Agents-Claude%20Code%20%7C%20Antigravity%20%7C%20Cursor%20%7C%20Windsurf-brightgreen.svg)](https://github.com/jeevesh2515/pre-push-verify)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-orange.svg)](https://github.com/jeevesh2515/pre-push-verify/pulls)
 [![Stars](https://img.shields.io/github/stars/jeevesh2515/pre-push-verify?style=social)](https://github.com/jeevesh2515/pre-push-verify)
 
 <p align="center">
   <a href="#-why-pre-push-verify">Why</a> •
+  <a href="#-enterprise-privacy--zero-data-retention-guarantee">Privacy & Zero Retention</a> •
   <a href="#-terminal-demo">Demo</a> •
   <a href="#-architecture">Architecture</a> •
   <a href="#-quickstart">Quickstart</a> •
@@ -29,14 +32,30 @@
 
 ## 💡 Why pre-push-verify?
 
-Autonomous AI coding agents (Claude Code, Antigravity, Cursor, OpenCode, Codex, Devin) write code 10x faster than humans. 
+Autonomous AI coding agents (Claude Code, Google Antigravity, Cursor, Windsurf, OpenCode, Codex, Devin) write code 10x faster than humans.
 
-**However, they also introduce three critical failure modes:**
-1. **Accidental Secret Leaks**: Agents generate inline `sk-ant-...`, `sk-...`, `AKIA...`, or `gsk_...` keys during rapid local debugging and push them to public repos.
-2. **LLM Code Slop & Bloat**: Agents invent speculative abstractions, leave commented-out draft code, generate redundant wrapper helpers, and import heavy libraries for things solved by standard library one-liners.
-3. **Silent Test Regressions**: Fast iterations break subtle edge cases that never get caught until CI fails or prod crashes.
+**However, they introduce three critical enterprise risks:**
+1. **Accidental Secret Leaks**: Agents generate inline `sk-ant-...`, `sk-...`, `AKIA...`, or `gsk_...` keys during rapid local debugging and push them straight into public repositories.
+2. **LLM Code Slop & Bloat**: Agents invent speculative abstractions, leave commented-out draft code, generate redundant wrapper helpers, and import heavy packages for tasks solved by standard library one-liners.
+3. **Silent Test Regressions**: Fast iterations break subtle edge cases that never get caught until CI fails or production crashes.
 
 **`pre-push-verify` fixes this permanently.** It acts as an uncompromising pre-push and pre-commit firewall. It analyzes only the working `git diff HEAD`, scans for 30+ secret patterns with Shannon entropy detection, enforces the **5 Ponytail Pruning Laws**, executes your project's native test suite, and blocks the push if anything fails.
+
+---
+
+## 🔒 Enterprise Privacy & Zero Data Retention Guarantee
+
+> **Your code, your credentials, and your intellectual property NEVER leave your machine.**
+
+Unlike cloud-based linters or SaaS security scanners that upload your codebase and diffs to external ingestion servers, `pre-push-verify` is built from the ground up on a **100% Local-First, Zero-Trust Architecture**:
+
+| Security Invariant | Guarantee | Technical Implementation |
+|---|---|---|
+| **0% Data Retention** | Guaranteed | No files, diffs, AST logs, code hashes, or detected credentials are ever stored in remote databases or disks. |
+| **100% Local CPU Execution** | Guaranteed | All regular expressions, Shannon entropy calculations, and test runners execute exclusively in the local machine process. |
+| **Zero Telemetry / No Tracking** | Guaranteed | Absolutely no tracking pixels, analytics beacons, Sentry, Mixpanel, or phone-home pings. Completely air-gap compatible. |
+| **In-Memory Masking** | Guaranteed | All detected secret tokens are redacted (`***REDACTED***`) before printing to terminal output or JSON, preventing terminal history and CI log pollution. |
+| **Enterprise Compliance** | Ready | Safe for use in strictly regulated environments: **SOC2**, **HIPAA**, **GDPR**, **ISO 27001**, defense, and banking. |
 
 ---
 
@@ -54,13 +73,14 @@ $ pre-push-verify --strict
     |_| |_|_\___|_|  \___/|___/_||_|    \_/ |___|_|_\___|_|   |_|  
 ========================================================================
            Automated Agent Security & Anti-Slop Verification Gate
+   [🔒 100% Local-First • 🛡️ 0% Data Retention • Zero External Telemetry]
 ========================================================================
 
 🔍 [1/3] Scanning git diff for secrets & credential leaks...
    ✓ 0 secrets found. Clean!
 
 ✂️  [2/3] Inspecting diff for AI code bloat (Ponytail Laws)...
-   ⚠️  [PRUNE] Found 1 opportunities to cut bloat:
+   ⚠️  [PRUNE] Found 1 opportunity to cut bloat:
       - [Line 42]: [DELETE] Temporary debug print statement found in diff.
    💡 Run pruning to keep diff lean and maintainable.
 
@@ -68,7 +88,7 @@ $ pre-push-verify --strict
    Detected runner: pytest
    Command: pytest tests/ -q
    ..................................................               [100%]
-   ✓ Tests passed successfully (42 passed in 1.24s)
+   ✓ Tests passed successfully (14 passed in 0.11s)
 
 ========================================================================
   🚀 VERIFICATION PASSED — "Lean already. Ship."
@@ -85,7 +105,7 @@ flowchart TD
     
     subgraph STAGE 1: Secret Leak Scanner
         B --> C{Scan Working Diff}
-        C -->|Match Detected| D[🚨 CRITICAL: Secret Leak Blocked]
+        C -->|Pattern Detected| D[🚨 CRITICAL: Secret Leak Blocked]
         C -->|Clean| E[Entropy & Heuristic Check]
         E -->|High Entropy Token| D
         E -->|Safe Placeholders| F[Stage 1 Passed]

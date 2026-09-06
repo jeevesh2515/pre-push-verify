@@ -1,19 +1,34 @@
 ---
 name: pre-push-verify
-description: Comprehensive pre-push security audit, Ponytail anti-overengineering review, test execution, and safe git push workflow for AI coding agents.
+description: Comprehensive pre-push security audit, Ponytail anti-overengineering review, test execution, and safe git push workflow for AI coding agents. 100% Local execution with 0% data retention.
 category: workflow
 metadata:
   author: Jeevesh Singale
   version: 1.0.0
-  tags: [security, code-pruning, ponytail, pre-push, git, testing]
+  privacy: local-first
+  data_retention: "0%"
+  telemetry: "none"
+  tags: [security, code-pruning, ponytail, pre-push, git, testing, zero-retention, local-first]
 ---
 
 # Pre-Push Verification & Anti-Overengineering Guardrail
+> **Zero Leaks. Zero Slop. Zero Regressions. 100% Local-First Execution.**
 
 Autonomous pre-push review skill designed for AI coding agents (Claude Code, Google Antigravity, OpenCode, Cursor, Windsurf, Devin). It prevents secret leaks, prunes speculative abstractions, runs regression tests, and guarantees clean, lean commits before every push.
 
+---
+
+## 🔒 Enterprise Privacy & Zero Data Retention Guarantee
+
+- **100% Local Execution**: All regex scanning, entropy scoring, AST diff inspection, and test suite execution run strictly in local CPU process memory.
+- **0% Data Retention**: No files, AST logs, diff hashes, or tokens are transmitted to external servers, cloud databases, or third-party APIs.
+- **Zero Telemetry**: Completely air-gapped and telemetry-free. No pingbacks, analytics, or phone-home tracking.
+- **In-Memory Masking**: Any matched credential is immediately redacted (`***REDACTED***`) in terminal outputs to avoid log poisoning.
+
+---
+
 ## When to Execute
-- **Mandatory Trigger**: Immediately after completing implementation or bugfixes, and **BEFORE** staging or running `git push`.
+- **Mandatory Trigger**: Immediately after completing implementation or bugfixes, and **BEFORE** staging, committing, or running `git push`.
 - **Target Scope**: The working diff (`git diff HEAD`), staged changes, and newly created files.
 
 ---
@@ -57,4 +72,6 @@ Run the bundled CLI tool:
 ```bash
 pre-push-verify --strict
 ```
-If clean: **"Lean already. Ship."** Proceed to `git commit` and `git push`.
+
+- If findings are reported: Prune bloat, remove secrets, fix failing tests.
+- If clean: Output **"Lean already. Ship."** and proceed to `git commit` and `git push`.
