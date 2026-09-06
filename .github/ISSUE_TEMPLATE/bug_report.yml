@@ -1,0 +1,29 @@
+name: Bug Report
+description: Create a report to help us improve pre-push-verify
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for taking the time to fill out this bug report!
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: What version of pre-push-verify or agent are you using?
+      placeholder: v1.0.0
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe the bug or false positive/negative.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction Diff / Command
+      description: Paste the command run and any sanitized snippet.
+    validations:
+      required: true

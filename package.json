@@ -1,0 +1,25 @@
+{
+  "name": "pre-push-verify",
+  "version": "1.0.0",
+  "description": "Autonomous Pre-Push Guardrail & Anti-Overengineering Engine for AI Coding Agents",
+  "main": "bin/pre-push-verify",
+  "bin": {
+    "pre-push-verify": "./bin/pre-push-verify"
+  },
+  "scripts": {
+    "test": "pytest tests/ -q"
+  },
+  "keywords": [
+    "ai-agent",
+    "git-hook",
+    "pre-push",
+    "security-scanner",
+    "code-pruning",
+    "claude-code",
+    "antigravity",
+    "cursor",
+    "ponytail"
+  ],
+  "author": "Jeevesh Singale",
+  "license": "MIT"
+}

@@ -1,0 +1,21 @@
+name: Feature Request
+description: Suggest an idea or new secret detection pattern for pre-push-verify
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: Thank you for suggesting an idea to make pre-push-verify stronger and leaner!
+  - type: textarea
+    id: problem
+    attributes:
+      label: Is your feature request related to a problem or new LLM pattern?
+      description: A clear and concise description of what the problem is.
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Describe the solution you'd like
+      description: A clear and concise description of what you want to happen.
+    validations:
+      required: true

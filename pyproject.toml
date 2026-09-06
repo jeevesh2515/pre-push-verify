@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pre-push-verify"
+version = "1.0.0"
+authors = [
+  { name="Jeevesh Singale", email="jeeveshsingale@gmail.com" },
+]
+description = "Autonomous Pre-Push Guardrail & Anti-Overengineering Engine for AI Coding Agents"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Quality Assurance",
+    "Topic :: Security",
+]
+
+[project.scripts]
+pre-push-verify = "pre_push_verify.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["pre_push_verify*"]
