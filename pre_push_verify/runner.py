@@ -72,7 +72,7 @@ def execute_tests(repo_root: Path, custom_cmd: str | None = None) -> list[TestRe
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
                 text=True,
-                timeout=180,
+                timeout=int(os.environ.get("PRE_PUSH_TIMEOUT", "360")),
             )
             results.append(
                 TestResult(
