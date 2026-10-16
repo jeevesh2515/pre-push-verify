@@ -2,9 +2,9 @@
 
 # 🛡️ pre-push-verify
 
-### **The Autonomous Security & Anti-Slop Firewall for AI Coding Agents**
+### **Local-first pre-push security and quality gate for AI-assisted software development**
 
-*Stop API key leaks, eliminate LLM code bloat, and verify regression tests before any commit or push hits GitHub.*
+*Scans the working diff for secrets, applies configurable maintainability checks, runs the project’s native tests, and blocks a push when configured gates fail.*
 
 [![CI](https://github.com/jeevesh2515/pre-push-verify/actions/workflows/ci.yml/badge.svg)](https://github.com/jeevesh2515/pre-push-verify/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -30,6 +30,18 @@
 
 </div>
 
+## Product contract
+
+`pre-push-verify` runs locally before code reaches a remote repository. It:
+
+1. scans the working diff for known credential patterns and high-entropy secrets;
+2. reports configurable maintainability warnings for unnecessary generated code;
+3. detects the project’s available test runner;
+4. runs the configured tests;
+5. returns a machine-readable result for Git hooks, agents, or CI.
+
+It does not claim to replace a full SAST, dependency scanner, secret manager, or human code review.
+
 ## 💡 Why pre-push-verify?
 
 Autonomous AI coding agents (Claude Code, Google Antigravity, Cursor, Windsurf, OpenCode, Codex, Devin) write code 10x faster than humans.
@@ -39,25 +51,32 @@ Autonomous AI coding agents (Claude Code, Google Antigravity, Cursor, Windsurf, 
 2. **LLM Code Slop & Bloat**: Agents invent speculative abstractions, leave commented-out draft code, generate redundant wrapper helpers, and import heavy packages for tasks solved by standard library one-liners.
 3. **Silent Test Regressions**: Fast iterations break subtle edge cases that never get caught until CI fails or production crashes.
 
-**`pre-push-verify` fixes this permanently.** It acts as an uncompromising pre-push and pre-commit firewall. It analyzes only the working `git diff HEAD`, scans for 30+ secret patterns with Shannon entropy detection, enforces the **5 Ponytail Pruning Laws**, executes your project's native test suite, and blocks the push if anything fails.
+**`pre-push-verify` addresses this in a configurable pre-push and pre-commit verification gate.** It analyzes only the working `git diff HEAD`, scans for 30+ secret patterns with Shannon entropy detection, enforces the **5 Ponytail Pruning Laws**, executes your project's native test suite, and blocks the push if anything fails.
 
 ---
 
-## 🔒 Enterprise Privacy & Zero Data Retention Guarantee
+## 🔒 Local-first data handling
 
-> **Your code, your credentials, and your intellectual property NEVER leave your machine.**
+> **Normal CLI operation runs locally and does not require hosted code ingestion.**
 
-Unlike cloud-based linters or SaaS security scanners that upload your codebase and diffs to external ingestion servers, `pre-push-verify` is built from the ground up on a **100% Local-First, Zero-Trust Architecture**:
+Unlike cloud-based linters or SaaS security scanners that upload codebases and diffs to external ingestion services, `pre-push-verify` is designed around a local-first execution model. Verify the deployment mode and CI configuration before making organisation-wide security claims:
 
 | Security Invariant | Guarantee | Technical Implementation |
 |---|---|---|
-| **0% Data Retention** | Guaranteed | No files, diffs, AST logs, code hashes, or detected credentials are ever stored in remote databases or disks. |
-| **100% Local CPU Execution** | Guaranteed | All regular expressions, Shannon entropy calculations, and test runners execute exclusively in the local machine process. |
-| **Zero Telemetry / No Tracking** | Guaranteed | Absolutely no tracking pixels, analytics beacons, Sentry, Mixpanel, or phone-home pings. Completely air-gap compatible. |
-| **In-Memory Masking** | Guaranteed | All detected secret tokens are redacted (`***REDACTED***`) before printing to terminal output or JSON, preventing terminal history and CI log pollution. |
-| **Enterprise Compliance** | Ready | Safe for use in strictly regulated environments: **SOC2**, **HIPAA**, **GDPR**, **ISO 27001**, defense, and banking. |
+| **Hosted ingestion** | Not required for normal CLI use | The default CLI path analyses the local working diff. |
+| **Local execution** | Designed by default | Regex, entropy checks, and test runners execute in the local process for the CLI path. |
+| **Secret output handling** | Masked in output | Detected tokens are redacted (`***REDACTED***`) before terminal or JSON output. |
+| **Compliance posture** | Supports privacy-sensitive workflows | Compliance depends on the organisation’s configuration, controls, and independent review. |
 
 ---
+
+## Threat model and known limits
+
+Protects against: accidental credentials in tracked diffs, common provider-token formats, high-entropy token-like strings, and failed local test gates.
+
+Does not protect against: credentials stored outside the scanned diff, compromised dependencies, malicious CI runners, leaked secrets already present in Git history, or an attacker who can modify the verification hook.
+
+False positives should be reported with file and line context; secret values are masked before output.
 
 ## ⚡ Terminal Demo
 
